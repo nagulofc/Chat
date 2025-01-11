@@ -5,15 +5,21 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Chat App</title>
   <style>
+    /* Reset body margin and padding */
+    body, html {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+    }
+
     body {
       font-family: Arial, sans-serif;
-      margin: 0;
-      height: 100vh;
       display: flex;
       justify-content: center;
       align-items: center;
       background-color: #f0f0f0;
     }
+
     #chat-container {
       display: flex;
       flex-direction: column;
@@ -24,6 +30,7 @@
       background-color: #ffffff;
       box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
     }
+
     #chat-box {
       flex: 1;
       padding: 20px;
@@ -32,6 +39,7 @@
       display: flex;
       flex-direction: column;
     }
+
     .message {
       display: inline-block;
       margin-bottom: 15px;
@@ -41,22 +49,26 @@
       font-size: 16px;
       line-height: 1.5;
     }
+
     .user {
       background-color: #d4f7d4;
       color: black;
       align-self: flex-end;
     }
+
     .bot {
       background-color: #f1f1f1;
       color: black;
       align-self: flex-start;
     }
+
     #input-container {
       display: flex;
       padding: 15px;
       border-top: 1px solid #ccc;
       background-color: #ffffff;
     }
+
     #chat-input {
       flex: 1;
       padding: 12px;
@@ -66,6 +78,7 @@
       outline: none;
       background-color: #fafafa;
     }
+
     #send-btn {
       padding: 12px 20px;
       margin-left: 10px;
@@ -76,12 +89,15 @@
       font-size: 16px;
       cursor: pointer;
     }
+
     #send-btn:hover {
       background-color: #0056b3;
     }
+
     #chat-box::-webkit-scrollbar {
       width: 8px;
     }
+
     #chat-box::-webkit-scrollbar-thumb {
       background-color: #cccccc;
       border-radius: 4px;
