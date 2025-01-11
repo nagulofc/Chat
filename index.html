@@ -10,19 +10,17 @@
       margin: 0;
       height: 100vh;
       display: flex;
-      justify-content: center;
-      align-items: center;
+      flex-direction: column;
       background-color: #f0f0f0;
     }
     #chat-container {
       display: flex;
       flex-direction: column;
-      width: 100%;
       height: 100%;
       max-width: 500px;
-      border-radius: 10px;
-      overflow: hidden;
+      margin: 0 auto;
       background-color: #ffffff;
+      border-radius: 10px;
       box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
     }
     #chat-box {
@@ -32,6 +30,7 @@
       background-color: #ffffff;
       display: flex;
       flex-direction: column;
+      overflow-x: hidden;
     }
     .message {
       display: inline-block;
@@ -57,6 +56,9 @@
       padding: 15px;
       border-top: 1px solid #ccc;
       background-color: #ffffff;
+      position: sticky;
+      bottom: 0;
+      width: 100%;
     }
     #chat-input {
       flex: 1;
