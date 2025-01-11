@@ -3,11 +3,11 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Simple Chat</title>
+  <title>Dating Chat</title>
   <style>
     body {
       font-family: Arial, sans-serif;
-      background-color: #f0f0f0;
+      background-color: #f8f9fa;
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -18,7 +18,7 @@
     #chat-box {
       width: 90%;
       max-width: 400px;
-      height: 300px;
+      height: 400px;
       border: 1px solid #ccc;
       border-radius: 10px;
       overflow-y: auto;
@@ -32,7 +32,7 @@
       max-width: 80%;
     }
     .user {
-      background-color: #d1f7d1;
+      background-color: #d4f7d4;
       text-align: right;
       margin-left: auto;
     }
@@ -66,7 +66,7 @@
   </style>
 </head>
 <body>
-  <h1>Simple Chat</h1>
+  <h1>Dating Chat</h1>
   <div id="chat-box"></div>
   <div id="input-container">
     <input id="chat-input" type="text" placeholder="Type a message..." />
@@ -78,35 +78,57 @@
     const chatInput = document.getElementById("chat-input");
     const sendBtn = document.getElementById("send-btn");
 
-    const botResponses = [
-      "Hello! How can I help you?",
-      "I'm here to assist you.",
-      "Tell me more!",
-      "Interesting, please continue.",
-      "Can you elaborate on that?",
-      "I'm just a simple bot, but I'm listening!",
-    ];
+    // Predefined replies for dating app chat
+    const botReplies = {
+      hi: "Hi there! How’s your day going?",
+      hello: "Hey! 😊 What’s up?",
+      "how are you": "I’m good! Just happy to chat with you. What about you?",
+      "what’s your name": "You can call me ChatBuddy 😄 What about you?",
+      "where are you from": "I’m from the virtual world 🌍. What about you?",
+      "what do you do": "I’m here to make chatting fun! What about you?",
+      "do you like movies": "Yes, I love them! What’s your favorite movie?",
+      "do you like traveling": "Absolutely! If you could go anywhere in the world, where would it be?",
+      "good night": "Good night! Sweet dreams 😊",
+      "good morning": "Good morning! Hope your day is as amazing as you are ☀️",
+      "tell me a joke": "Sure! Why don’t skeletons fight each other? Because they don’t have the guts! 😄",
+      "do you have hobbies": "I like chatting with awesome people like you! What’s your hobby?",
+      "are you single": "Haha, I’m just a bot, but I’m here for you! 😊",
+      "do you like me": "Of course! You’re amazing 🥰",
+      bye: "Goodbye! Can’t wait to chat again soon!",
+      thanks: "You’re welcome! 😊",
+      "i love you": "Aww, that’s so sweet! Love you too ❤️",
+      default: "Hmm, interesting! Tell me more about that."
+    };
 
-    sendBtn.addEventListener("click", () => {
-      const userMessage = chatInput.value.trim();
-      if (userMessage === "") return;
+    sendBtn.addEventListener("click", sendMessage);
 
-      // Add user message
+    function sendMessage() {
+      const userMessage = chatInput.value.trim().toLowerCase();
+      if (!userMessage) return;
+
+      // Add user message to chat
       addMessage(userMessage, "user");
       chatInput.value = "";
 
-      // Simulate bot response
-      setTimeout(() => {
-        const botMessage =
-          botResponses[Math.floor(Math.random() * botResponses.length)];
-        addMessage(botMessage, "bot");
-      }, 1000);
-    });
+      // Get bot reply
+      const botReply = getBotReply(userMessage);
+      setTimeout(() => addMessage(botReply, "bot"), 500);
+    }
 
-    function addMessage(message, sender) {
+    function getBotReply(message) {
+      // Check for predefined replies
+      for (const key in botReplies) {
+        if (message.includes(key)) {
+          return botReplies[key];
+        }
+      }
+      return botReplies.default;
+    }
+
+    function addMessage(text, sender) {
       const messageDiv = document.createElement("div");
       messageDiv.className = `message ${sender}`;
-      messageDiv.textContent = message;
+      messageDiv.textContent = text;
       chatBox.appendChild(messageDiv);
       chatBox.scrollTop = chatBox.scrollHeight;
     }
