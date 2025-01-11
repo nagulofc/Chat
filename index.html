@@ -97,7 +97,7 @@
 
     async function getBotReply(userMessage) {
       try {
-        const response = await fetch('/api/chat', {
+        const response = await fetch('https://chat-kar9.onrender.com', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ message: userMessage })
