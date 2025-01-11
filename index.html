@@ -10,17 +10,19 @@
       margin: 0;
       height: 100vh;
       display: flex;
-      flex-direction: column;
+      justify-content: center;
+      align-items: center;
       background-color: #f0f0f0;
     }
     #chat-container {
       display: flex;
       flex-direction: column;
+      width: 100%;
       height: 100%;
       max-width: 500px;
-      margin: 0 auto;
-      background-color: #ffffff;
       border-radius: 10px;
+      overflow: hidden;
+      background-color: #ffffff;
       box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
     }
     #chat-box {
@@ -30,7 +32,6 @@
       background-color: #ffffff;
       display: flex;
       flex-direction: column;
-      overflow-x: hidden;
     }
     .message {
       display: inline-block;
@@ -56,9 +57,6 @@
       padding: 15px;
       border-top: 1px solid #ccc;
       background-color: #ffffff;
-      position: sticky;
-      bottom: 0;
-      width: 100%;
     }
     #chat-input {
       flex: 1;
@@ -127,6 +125,12 @@
       default: "Hmm, interesting! Tell me more about that."
     };
 
+    // Load chat history from localStorage if available
+    const chatHistory = JSON.parse(localStorage.getItem('chatHistory')) || [];
+
+    // Display chat history on page load
+    chatHistory.forEach(message => addMessage(message.text, message.sender));
+
     sendBtn.addEventListener("click", sendMessage);
 
     function sendMessage() {
@@ -137,9 +141,19 @@
       addMessage(userMessage, "user");
       chatInput.value = "";
 
-      // Get bot reply
-      const botReply = getBotReply(userMessage);
-      setTimeout(() => addMessage(botReply, "bot"), 500);
+      // Save user message to localStorage
+      chatHistory.push({ text: userMessage, sender: "user" });
+      localStorage.setItem('chatHistory', JSON.stringify(chatHistory));
+
+      // Add a delay of 3 seconds before bot replies
+      setTimeout(() => {
+        const botReply = getBotReply(userMessage);
+        addMessage(botReply, "bot");
+
+        // Save bot reply to localStorage
+        chatHistory.push({ text: botReply, sender: "bot" });
+        localStorage.setItem('chatHistory', JSON.stringify(chatHistory));
+      }, 3000);
     }
 
     function getBotReply(message) {
